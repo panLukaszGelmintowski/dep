@@ -14,8 +14,8 @@ def create_product(db: Session, product: schemas.ProductCreate):
 def get_product_by_id(db: Session, product_id:int):
     return db.query(models.Product).filter(models.Product.id == product_id).first()
 
-def get_product_by_name(db: Session, name:str):
-    return db.query(models.Product).filter(models.Product.name == name).first()
+def get_product_by_name(db: Session, product_name:str):
+    return db.query(models.Product).filter(models.Product.name == product_name).all()
 
 def create_providerr(db:Session, provider:schemas.ProviderCreate):
     db_provider = models.Provider(name=provider.name,
