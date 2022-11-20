@@ -1,8 +1,8 @@
 """init
 
-Revision ID: c31d2142ca26
+Revision ID: acb5d3038f57
 Revises: 
-Create Date: 2022-10-24 00:04:32.445181
+Create Date: 2022-11-17 20:46:52.478690
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c31d2142ca26'
+revision = 'acb5d3038f57'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,8 +22,8 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('recieve_date', sa.DateTime(), nullable=False),
-    sa.Column('bough_price', sa.Float(), nullable=False),
     sa.Column('quantity', sa.Integer(), nullable=False),
+    sa.Column('price', sa.Float(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_product_id'), 'product', ['id'], unique=False)
@@ -49,6 +49,8 @@ def upgrade() -> None:
     op.create_table('supplies',
     sa.Column('product_id', sa.Integer(), nullable=False),
     sa.Column('provider_id', sa.Integer(), nullable=False),
+    sa.Column('bought_price', sa.Float(), nullable=False),
+    sa.Column('quantity', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['product_id'], ['product.id'], ),
     sa.ForeignKeyConstraint(['provider_id'], ['provider.id'], ),
     sa.PrimaryKeyConstraint('product_id', 'provider_id')

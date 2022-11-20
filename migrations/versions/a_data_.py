@@ -14,7 +14,7 @@ from src.models import Product, Provider, Sale, Supply
 
 # revision identifiers, used by Alembic.
 revision = 'a_data'
-down_revision = 'c31d2142ca26'
+down_revision = 'acb5d3038f57'
 branch_labels = None
 depends_on = None
 
@@ -25,11 +25,11 @@ def upgrade() -> None:
     
     prod_a = Product(name='printer',
                      recieve_date=datetime(2020, 10, 5, 18, 00),
-                     bough_price=10000.00,
+                     price=10000.00,
                      quantity=40)
     prod_b = Product(name='disk',
                      recieve_date=datetime(2020, 10, 5, 18, 1),
-                     bough_price=5600.00,
+                     price=5600.00,
                      quantity=20)
     
     session.add_all([prod_a,prod_b])
@@ -67,9 +67,13 @@ def upgrade() -> None:
     session.flush()
     
     supl_a = Supply(product_id=prod_a.id,
-                    provider_id=prov_a.id)
+                    provider_id=prov_a.id,
+                    bought_price=10000,
+                    quantity=40)
     supl_b = Supply(product_id=prod_b.id,
-                    provider_id=prov_b.id)
+                    provider_id=prov_b.id,
+                    bought_price=5600,
+                    quantity=20)
     
     session.add_all([supl_a, supl_b,])
     session.commit()

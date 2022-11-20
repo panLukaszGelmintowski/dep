@@ -16,6 +16,8 @@ class Supply(Base):
     
     product_id = Column(ForeignKey('product.id'), primary_key=True, nullable=False)
     provider_id = Column(ForeignKey('provider.id'), primary_key=True, nullable=False)
+    bought_price = Column(Float, nullable=False)
+    quantity = Column(Integer, nullable=False)
     product_suplies = relationship('Product', back_populates='supplies_product')
     provider_suplies = relationship('Provider', back_populates='supplies_providers')
 
@@ -25,9 +27,8 @@ class Product(BaseModel):
     
     name = Column(String, nullable=False)
     recieve_date = Column(DateTime, nullable=False)
-    bough_price = Column(Float, nullable=False)
     quantity = Column(Integer, nullable=False)
-    
+    price = Column(Float, nullable=False)
     sales_products = relationship('Sale', back_populates='products_sales')
     supplies_product = relationship('Supply', back_populates='product_suplies')
     

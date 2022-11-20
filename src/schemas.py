@@ -4,7 +4,7 @@ from pydantic import BaseModel
 class ProductBase(BaseModel):
     name: str
     recieve_date: datetime
-    bough_price: float
+    price: float
     quantity: int
 
 class ProductCreate(ProductBase):
@@ -36,13 +36,15 @@ class Provider(ProviderBase):
         orm_mode = True
 
 class SupplyBase(BaseModel):
+    product_supplies: list[Product] = []
+    provider_supplies: list[Product] = []
     pass
 
 class SupplyCreate(SupplyBase):
     pass
 
 class Supply(SupplyBase):
-    
+    id: int
     class Config:
         orm_mode = True
         
@@ -57,7 +59,7 @@ class SaleCreate(SaleBase):
 
 class Sale(SaleBase):
     id: int
-    products_sales: list[Product] = []
+    # products_sales: list[Product] = []
 
     class Config:
         orm_mode = True
