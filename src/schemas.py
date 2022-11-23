@@ -36,8 +36,10 @@ class Provider(ProviderBase):
         orm_mode = True
 
 class SupplyBase(BaseModel):
-    product_supplies: list[Product] = []
-    provider_supplies: list[Product] = []
+    product_id: int
+    provider_id: int
+    bought_price: float
+    quantity: int
     pass
 
 class SupplyCreate(SupplyBase):

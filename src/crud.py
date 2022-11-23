@@ -62,8 +62,8 @@ def create_sale(db: Session, sale: schemas.SaleCreate, product_id:int, sale_quan
     db_product = get_product_by_id(db=db, product_id=product_id)
     if sale_quantity <= db_product.quantity:
         update_product_amount(db=db, 
-                            product_id=db_sale.product_code,
-                            product_amount=-db_sale.sale_quantity)
+                              product_id=product_id,
+                              product_amount=-sale_quantity)
         db.add(db_sale)
         db.commit()
         db.refresh(db_sale)
@@ -72,5 +72,18 @@ def create_sale(db: Session, sale: schemas.SaleCreate, product_id:int, sale_quan
 def get_sale_by_product_code(db: Session, product_code: int):
     return db.query(models.Sale).filter(models.Sale.product_code == models.Product.id).filter(models.Product.id == product_code).all()
 
-def get_sale_by_id(db: Session, sale_id: int):
-    return db.query(models.Sale).filter(models.Sale.id == sale_id).first()
+def create_supply(db:Session, product_id:int, provider_id:int, bought_price:float, quantity:int):
+    db_supply = models.Supply(product_id=product_id,
+                              provider_id=provider_id,
+                              bought_price=bought_price,
+                              quantity=quantity)
+    update_product_amount(db=db, 
+                          product_id=product_id,
+                          product_amount=+quantity)
+    db.add(db_supply)
+    db.commit()
+    db.refresh(db_supply)
+    return db_supply
+
+def get_supply_by_provider(db:Session, provider_id:int):
+    return db.query(models.Supply).filter(models.Supply.provider_id == models.Provider.id).all()
