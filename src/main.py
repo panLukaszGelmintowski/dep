@@ -75,10 +75,9 @@ def create_supply(supply: schemas.SupplyCreate, db:Session=Depends(get_db)):
         raise HTTPException(status_code=422, detail='there is not enough product')
     return db_supply
    
-@app.get('/supply/', response_model=list[schemas.Supply])
+@app.get('/supply/via_{provider_id}', response_model=list[schemas.Supply])
 def get_supply_by_provider(provider_id:int, db:Session=Depends(get_db)):
     db_supply = get_supply_by_provider(provider_id=provider_id, db=db)
-    print(db_supply)
     if db_supply is None:
         raise HTTPException(status_code=404, detail='supply not found')    
     return db_supply

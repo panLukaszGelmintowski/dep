@@ -136,3 +136,9 @@ def test_create_supply():
     assert response.status_code == 200, response.text
     data = response.json()
     assert data["quantity"] == 2
+    
+def test_get_supply():
+    response = client.get('/supply/via_1')
+    assert response.status_code == 200, response.text
+    data = response.json()
+    assert type(data)==list

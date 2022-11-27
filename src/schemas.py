@@ -40,7 +40,7 @@ class SupplyBase(BaseModel):
     provider_id: int
     bought_price: float
     quantity: int
-    pass
+
 
 class SupplyCreate(SupplyBase):
     pass
