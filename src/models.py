@@ -11,11 +11,11 @@ class BaseModel(Base):
     def __repr__(self):
         return f"<{type(self).__name__}(id={self.id})>"
     
-class Supply(Base):
+class Supply(BaseModel):
     __tablename__ = 'supplies'
     
-    product_id = Column(ForeignKey('product.id'), primary_key=True, nullable=False)
-    provider_id = Column(ForeignKey('provider.id'), primary_key=True, nullable=False)
+    product_id = Column(ForeignKey('product.id'), nullable=False)
+    provider_id = Column(ForeignKey('provider.id'), nullable=False)
     bought_price = Column(Float, nullable=False)
     quantity = Column(Integer, nullable=False)
     product_suplies = relationship('Product', back_populates='supplies_product')

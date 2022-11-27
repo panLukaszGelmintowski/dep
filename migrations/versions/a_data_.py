@@ -1,8 +1,8 @@
 """empty message
 
 Revision ID: a_data
-Revises: c31d2142ca26
-Create Date: 2022-10-23 22:05:26.762949
+Revises: a16875ac9988
+Create Date: 2022-11-24 07:56:30.441224
 
 """
 from alembic import op
@@ -14,7 +14,7 @@ from src.models import Product, Provider, Sale, Supply
 
 # revision identifiers, used by Alembic.
 revision = 'a_data'
-down_revision = 'acb5d3038f57'
+down_revision = 'a16875ac9988'
 branch_labels = None
 depends_on = None
 
