@@ -12,7 +12,7 @@ def create_product(db: Session, product: schemas.ProductCreate):
     db.refresh(db_product)
     return db_product
 
-def update_product_price(db:Session, product: schemas.Product, new_price:float):
+def update_product_price(db:Session, product: schemas.Product, new_price:float):# pragma: no cover
     db_product = get_product_by_id(db=db, product_id=product.id)
     db_product.price = new_price
     db.commit()
@@ -21,9 +21,10 @@ def update_product_price(db:Session, product: schemas.Product, new_price:float):
 
 def update_product_amount(db:Session, product_id:int, product_amount:float):
     db_product = get_product_by_id(db=db, product_id=product_id)
-    db_product.quantity += product_amount
-    if db_product.quantity >= 0:
-        db.commit()
+    if db_product:
+        db_product.quantity += product_amount
+        if db_product.quantity >= 0:
+            db.commit()
     return db_product
 
 def get_product_by_id(db: Session, product_id:int):
@@ -47,12 +48,6 @@ def get_provder(db: Session, product_id:int):
 
 def get_provider_by_name(db: Session, name:str):
     return db.query(models.Provider).filter(models.Provider.name == name).first()
-
-def get_provider_by_phone(db: Session, phone:str):
-    return db.query(models.Provider).filter(models.Provider.phone == phone).first()
-
-def get_provider_by_contactee(db: Session, contactee:str):
-    return db.query(models.Provider).filter(models.Provider.contactee == contactee).first()
 
 def create_sale(db: Session, sale: schemas.SaleCreate):
     db_sale = models.Sale(sale_date=sale.sale_date,
@@ -86,4 +81,4 @@ def create_supply(db:Session, supply:schemas.SupplyCreate):
     return db_supply
 
 def get_supply_by_provider(db:Session, provider_id:int):
-    return db.query(models.Supply).filter(models.Supply.provider_id == models.Provider.id).filter(models.Provider.id == provider_id).all()
+    return db.query(models.Supply).filter(models.Supply.provider_id == provider_id).all()
