@@ -4,8 +4,9 @@ from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 from src.main import app, get_db
 from src.models import Base
+from os import environ
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"  # Тестовая БД
+SQLALCHEMY_DATABASE_URL = environ.get('DATABASE_URL')
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
